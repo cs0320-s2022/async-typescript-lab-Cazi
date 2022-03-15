@@ -1,7 +1,7 @@
 // TODO: select the list element where the suggestions should go, and all three dropdown elements
 //  HINT: look at the HTML
 
-let suggestions = document.querySelector("#suggestions") as HTMLInputElement;
+let suggestions = document.querySelector("#suggestions") as HTMLUListElement;
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
 let sun = document.querySelector("#sun") as HTMLInputElement;
@@ -48,16 +48,15 @@ function postAndUpdate(): void {
   //  Parse the JSON in the response object
   //  HINT: remember to get the specific field in the JSON you want to use
   fetch('http://localhost:8080/results', {
-    method: 'POST',
+    method: 'post',
     body: JSON.stringify(postParameters),
     headers: {
       'Access-Control-Allow-Origin': '*'
     }
   })
-      .then((response: Response) => response.json())
+      .then((response) => response.json())
       .then((data: Matches) => {
         console.log(data)
-        console.log(data.matches)
         updateSuggestions(data.matches);
       });
 
@@ -69,7 +68,7 @@ function postAndUpdate(): void {
     //  make sure to add the attribute 'tabindex="0"' (for example: <li tabindex="0">{your element}</li>).
     //  This makes each element selectable via screen reader.
     for (let i in matches) {
-      suggestions.innerHTML += `<li tabindex="0">${matches[i]}</li>`
+      suggestions.innerHTML += "<li tabindex=\"i\">" + matches[i] + "</li>"
     }
   }
 
